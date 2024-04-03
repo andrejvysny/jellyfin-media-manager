@@ -174,8 +174,11 @@ class MainWindow(QMainWindow):
                 try:
                     subprocess.Popen(["C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe", self.selectedFilePath.replace('/', '\\')])
                 except FileNotFoundError:
-                    print(self.selectedFilePath)
-                    print("VLC is not installed or the path is incorrect")
+                    try:
+                        subprocess.Popen(["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", self.selectedFilePath.replace('/', '\\')])
+                    except FileNotFoundError:
+                        print(self.selectedFilePath)
+                        print("VLC is not installed or the path is incorrect")
 
 
 if __name__ == '__main__':
