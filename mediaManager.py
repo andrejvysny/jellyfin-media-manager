@@ -116,8 +116,15 @@ class MainWindow(QMainWindow):
         return group
 
     def choose_file(self):
+        # Define the initial directory relative to the current working directory
+        initialDir = os.path.join(os.getcwd(), "inputs")
+        
+        # Check if the directory exists, and create it if it doesn't
+        if not os.path.exists(initialDir):
+            os.makedirs(initialDir)
+
         options = QFileDialog.Options()
-        fileName, _ = QFileDialog.getOpenFileName(self, "Select File", "", "All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self, "Select File", initialDir, "All Files (*);;Python Files (*.py)", options=options)
         if fileName:
             self.selectedFilePath = fileName
             self.fileNameLabel.setText(os.path.basename(fileName))
@@ -136,8 +143,7 @@ class MainWindow(QMainWindow):
         folderName=getNameFromWeb(currentUrl)
 
         # Define the target directory and new filename
-        targetDir = os.path.join(os.getcwd(), folderName)
-
+        targetDir = os.path.join(os.getcwd(),"movies", folderName)
 
         originalFileName = os.path.basename(self.selectedFilePath)
         fileNameWithoutExtension, fileExtension = os.path.splitext(originalFileName)
