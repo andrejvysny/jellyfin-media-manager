@@ -157,6 +157,12 @@ class MainWindow(QMainWindow):
         # Define the target path for the file
         targetFilePath = os.path.join(targetDir, newFileName)
 
+        counter = 2
+        while os.path.exists(targetFilePath):
+            newFileName = f"{folderName} - {selectedOptions} {counter}{fileExtension}"
+            targetFilePath = os.path.join(targetDir, newFileName)
+            counter += 1
+
         # Move and rename the file
         shutil.move(self.selectedFilePath, targetFilePath)
 
